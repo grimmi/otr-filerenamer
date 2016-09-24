@@ -7,23 +7,25 @@ namespace EpisodeNamer.Tests
 {
     public class FakeCrawler : IEpisodeCrawler
     {
-        public async Task<EpisodeList> DownloadEpisodeListAsync(string showName)
+        public Task<EpisodeList> DownloadEpisodeListAsync(string showName)
         {
-            return new EpisodeList
+            return Task.FromResult(new EpisodeList
             {
                 ShowName = showName,
                 Seasons = new[]
                 {
                     Season1(showName)
                 }
-            };
+            });
         }
 
-        private Season Season1(string showName)
+        private static Season Season1(string showName)
         {
-            var s1 = new Season();
-            s1.ShowName = showName;
-            s1.Number = 1;
+            var s1 = new Season
+            {
+                ShowName = showName,
+                Number = 1
+            };
             s1.Episodes = new[]
             {
                 new Episode
