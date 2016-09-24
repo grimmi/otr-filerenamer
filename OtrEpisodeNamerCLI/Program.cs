@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using EpisodeNamer;
 using FileDistributor;
 using WikipediaShowCrawler;
@@ -12,7 +14,10 @@ namespace OtrEpisodeNamerCLI
 {
     class Program
     {
+        private static CommandLineWindow window = new CommandLineWindow();
         private static readonly Dictionary<string, string> showMapping = new Dictionary<string, string>();
+
+        [STAThread()]
         static void Main(string[] args)
         {
             MainAsync(args).Wait();
@@ -22,14 +27,61 @@ namespace OtrEpisodeNamerCLI
         {
             var startDir = args != null && args.Length > 0
                 ? args[0]
-                : @"\\nas\Shared\Downloads\OTR\20160923";
+                : "";
+
+            var targetDir = args != null && args.Length > 1
+                ? args[1]
+                : "";
+            try
+            {
+                if (string.IsNullOrWhiteSpace(startDir))
+                {
+                    using (var dirDialog = new FolderBrowserDialog())
+                    {
+                        dirDialog.Description = "Ausgangspfad auswählen";
+                        var dlgOk = dirDialog.ShowDialog(window);
+                        if (dlgOk == DialogResult.OK)
+                        {
+                            startDir = dirDialog.SelectedPath;
+                        }
+                        else
+                        {
+                            Console.WriteLine("kein Pfad angegeben");
+                            Environment.Exit(1);
+                        }
+                    }
+                }
+
+                if (string.IsNullOrWhiteSpace(targetDir))
+                {
+                    using (var dirDialog = new FolderBrowserDialog())
+                    {
+                        dirDialog.Description = "Zielpfad angeben";
+                        var dlgOk = dirDialog.ShowDialog(window);
+                        if (dlgOk == DialogResult.OK)
+                        {
+                            targetDir = dirDialog.SelectedPath;
+                        }
+                        else
+                        {
+                            Console.WriteLine("kein Pfad angegeben");
+                            Environment.Exit(1);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                Console.ReadKey();
+            }
 
             var files = Directory.EnumerateFiles(startDir, "*.mpg.avi", SearchOption.AllDirectories);
 
-            await Run(files);
+            await Run(files, targetDir);
         }
 
-        private static async Task Run(IEnumerable<string> files)
+        private static async Task Run(IEnumerable<string> files, string targetDir)
         {
             var showNameParser = new OtrShowNameParser();
             var showFiles = new Dictionary<string, Dictionary<string, string>>();
@@ -61,7 +113,7 @@ namespace OtrEpisodeNamerCLI
             {
                 var show = kvp.Key;
                 var srcToTarget = kvp.Value;
-                var distributor = new FileCopier(@"\\nas\Shared\Video\SerienTest");
+                var distributor = new FileCopier(targetDir);
                 distributor.DistributeFiles(show, srcToTarget);
             }
 
@@ -100,5 +152,18 @@ namespace OtrEpisodeNamerCLI
                 return userShowName;
             }
         }
+    }
+
+    internal class CommandLineWindow : IWin32Window
+    {
+        #region IWin32Window Members
+        public IntPtr Handle
+        {
+            get
+            {
+                return (Process.GetCurrentProcess().MainWindowHandle);
+            }
+        }
+        #endregion
     }
 }
