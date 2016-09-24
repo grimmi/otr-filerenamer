@@ -50,6 +50,7 @@
     <Compile Include="IFileParser.cs" />
     <Compile Include="OtrFileDateParser.cs" />
     <Compile Include="OtrFileEpisodeParser.cs" />
+    <Compile Include="OtrShowNameParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleFileRenamer.cs" />
   </ItemGroup>

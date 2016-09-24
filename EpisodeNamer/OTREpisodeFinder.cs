@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Threading.Tasks;
 using TvShowManager;
 using TvShowManager.Interfaces;
@@ -10,25 +11,50 @@ namespace EpisodeNamer
         private string EpisodeFile { get; set; }
         private string Show { get; set; }
         private IEpisodeCrawler Crawler { get; set; }
-        
+
         public async Task<EpisodeFile> GetEpisodeAsync(string episodeFile, string show, IEpisodeCrawler crawler)
         {
             EpisodeFile = episodeFile;
             Show = show;
             Crawler = crawler;
-            var episodes = await Crawler.DownloadEpisodeListAsync(Show);
+            EpisodeList epList = null;
+            try
+            {
+                epList = await Crawler.DownloadEpisodeListAsync(Show);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Fehler: " + ex);
+                throw;
+            }
             Episode match = null;
             var episodeName = ExtractEpisodeNameFromOTRFileName(EpisodeFile);
             if (string.IsNullOrWhiteSpace(episodeName))
             {
-                match = FindEpisodeByDate(EpisodeFile, episodes);
+                match = FindEpisodeByDate(EpisodeFile, epList);
             }
             else
             {
-                match = FindEpisodeForEpisodeName(episodeName, episodes);
+                match = FindEpisodeForEpisodeName(episodeName, epList);
+            }
+
+            if (match == null)
+            {
+                match = CreateDummyEpisode(episodeName);
             }
 
             return new EpisodeFile { Episode = match, File = EpisodeFile };
+        }
+
+        private Episode CreateDummyEpisode(string episodeName)
+        {
+            var dummySeason = CreateDummySeason(Show);
+            return new Episode { FirstAired = new DateTime(1900, 1, 1), Name = episodeName, Season = dummySeason, Number = 0 };
+        }
+
+        private Season CreateDummySeason(string show)
+        {
+            return new Season { Episodes = Enumerable.Empty<Episode>(), Number = 0, ShowName = show };
         }
 
         private Episode FindEpisodeByDate(string fileToRename, EpisodeList episodes)

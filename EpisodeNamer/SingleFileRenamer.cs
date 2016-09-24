@@ -1,4 +1,5 @@
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using TvShowManager.Interfaces;
 
@@ -26,8 +27,20 @@ namespace EpisodeNamer
             var generator = new FileNameGenerator();
 
             var newFileName = generator.GenerateFileName(episodeFile);
+            newFileName = CleanFileName(newFileName);
 
             return Path.Combine(targetFolder, newFileName);
+        }
+
+        private string CleanFileName(string newFileName)
+        {
+            var invalidFileNameChars = Path.GetInvalidFileNameChars();
+            var invalidPathChars = Path.GetInvalidPathChars();
+
+            var cleanFileName =
+                new string(newFileName.Where(c => !invalidFileNameChars.Contains(c) && !invalidPathChars.Contains(c)).ToArray());
+
+            return cleanFileName;
         }
     }
 }
