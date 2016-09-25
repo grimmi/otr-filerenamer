@@ -27,11 +27,11 @@ namespace OtrEpisodeNamerCLI
         {
             var startDir = args != null && args.Length > 0
                 ? args[0]
-                : "";
+                : @"";
 
             var targetDir = args != null && args.Length > 1
                 ? args[1]
-                : "";
+                : @"";
             try
             {
                 if (string.IsNullOrWhiteSpace(startDir))

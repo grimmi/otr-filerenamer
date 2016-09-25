@@ -20,5 +20,19 @@ namespace EpisodeNamer.Tests
 
             Assert.AreEqual(expectedPath, newName);
         }
+
+        [Test]
+        [TestCase("The_Simpsons_16.03.06_20-00_uswnyw_30_TVOON_DE.mpg.avi", 15, 27, "Lisa the Veterinarian")]
+        public async Task RenameFile_SimpsonsEpisode_CorrectSeasonAndEpisodeNumber(string file, int epNr, int sNr, string epName)
+        {
+            var crawler = new SimpsonsCrawler();
+            var finder = new OtrEpisodeFinder();
+            var renamer = new SingleFileRenamer(file, "The Simpsons", crawler, finder);
+
+            var newName = await renamer.RenameFile("");
+            var expectedPath = "The Simpsons " + sNr + "x" + epNr + " " + epName + ".avi";
+
+            Assert.AreEqual(expectedPath, newName);
+        }
     }
 }
