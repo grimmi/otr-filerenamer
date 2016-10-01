@@ -75,13 +75,25 @@ namespace EpisodeNamer
             if (match != null)
                 return match;
 
-            var lowOnlyLetters = string.Concat(episodeName.Where(char.IsLetter)).ToLower();
-            match = episodes.FirstOrDefault(e => string.Concat(e.Name.Where(char.IsLetter)).ToLower().Equals(lowOnlyLetters));
+            var episodeNameLow = ToLowerWithOnlyLettersAndNumbers(episodeName);
+            match = episodes.FirstOrDefault(e => ToLowerWithOnlyLettersAndNumbers(e.Name).Equals(episodeNameLow));
 
             if (match != null)
                 return match;
 
+            match = episodes.FirstOrDefault(e => episodeNameLow.StartsWith(ToLowerWithOnlyLettersAndNumbers(e.Name)));
+
+            if (match != null)
+                return match;
+
+            match = episodes.FirstOrDefault(e => ToLowerWithOnlyLettersAndNumbers(e.Name).StartsWith(episodeNameLow));
+
             return match;
+        }
+
+        private string ToLowerWithOnlyLettersAndNumbers(string name)
+        {
+            return string.Concat(name.Where(c => char.IsLetter(c) || char.IsDigit(c))).ToLower();
         }
 
         public string ExtractEpisodeNameFromOTRFileName(string filePath)

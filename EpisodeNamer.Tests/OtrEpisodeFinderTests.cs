@@ -49,6 +49,30 @@ namespace EpisodeNamer.Tests
             Assert.AreEqual(seasonNr, episode.Season.Number);
         }
 
+        [Test]
+        [TestCase("some_show__episode_1_(pilot)_s01e01_10.01.01_.mpg.avi", "Episode 1 (Pilot)")]
+        public async Task GetEpisodeAsync_EpisodeWithExtraText_CorrectEpisode(string file, string expName)
+        {
+            var crawler = GetShowCrawler();
+            var finder = new OtrEpisodeFinder();
+
+            var episodeInfo = await finder.GetEpisodeAsync(file, "some show", crawler);
+
+            Assert.AreEqual(expName, episodeInfo.Episode.Name);
+        }
+
+        [Test]
+        [TestCase("some_show__episode_1_(pilot)..mpg.avi", "some show", "Episode 1 (Pilot)")]
+        public async Task GetEpisodeAsync_EpisodeWithoutDate_CorrectEpisode(string file, string show, string expName)
+        {
+            var crawler = GetShowCrawler();
+            var finder = new OtrEpisodeFinder();
+
+            var episode = await finder.GetEpisodeAsync(file, show, crawler);
+
+            Assert.AreEqual(expName, episode.Episode.Name);
+        }
+
         private IFileParser GetFileParser()
         {
             return new FakeParser();
