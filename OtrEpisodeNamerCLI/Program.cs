@@ -76,7 +76,7 @@ namespace OtrEpisodeNamerCLI
                 Console.ReadKey();
             }
 
-            var files = Directory.EnumerateFiles(startDir, "*.mpg.avi", SearchOption.AllDirectories);
+            var files = Directory.EnumerateFiles(startDir, "*.avi", SearchOption.AllDirectories);
 
             await Run(files, targetDir);
         }
