@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using EpisodeNamer;
 using FileDistributor;
+using SQLite;
 using WikipediaShowCrawler;
 
 namespace OtrEpisodeNamerCLI
@@ -17,9 +19,17 @@ namespace OtrEpisodeNamerCLI
         private static CommandLineWindow window = new CommandLineWindow();
         private static readonly Dictionary<string, string> showMapping = new Dictionary<string, string>();
 
+        private static SQLiteConnection db;
+        private static IEnumerable<ShowMapping> mappings;
+
         [STAThread()]
         static void Main(string[] args)
         {
+            var path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var dbPath = Path.Combine(path, "showmappings.db3");
+            db = new SQLiteConnection(dbPath);
+            db.CreateTable<ShowMapping>();
+            mappings = db.Table<ShowMapping>();
             MainAsync(args).Wait();
         }
 
@@ -123,11 +133,12 @@ namespace OtrEpisodeNamerCLI
         private static string AskUserForShowName(string showName, string file)
         {
             Console.WriteLine("Datei analysiert: " + file);
-            if (showMapping.ContainsKey(showName))
+
+            var savedMapping = mappings.FirstOrDefault(m => m.FileShowName == showName);
+            if (savedMapping != null)
             {
-                showName = showMapping[showName];
-                Console.WriteLine("Show bereits bestätigt: " + showName);
-                return showName;
+                Console.WriteLine("Show aus Datenbank geladen: " + savedMapping.UserShowName);
+                return savedMapping.UserShowName;
             }
             Console.WriteLine("Show erkannt: " + showName);
             Console.WriteLine("Name richtig? [j]/n");
@@ -137,7 +148,7 @@ namespace OtrEpisodeNamerCLI
             {
                 if (!showMapping.ContainsKey(showName))
                 {
-                    showMapping.Add(showName, showName);
+                    db.Insert(new ShowMapping {FileShowName = showName, UserShowName = showName});
                 }
                 return showName;
             }
@@ -145,10 +156,8 @@ namespace OtrEpisodeNamerCLI
             {
                 Console.WriteLine("ShowName eingeben: ");
                 var userShowName = Console.ReadLine();
-                if (!showMapping.ContainsKey(userShowName))
-                {
-                    showMapping.Add(showName, userShowName);
-                }
+                var userMapping = new ShowMapping {FileShowName = showName, UserShowName = userShowName};
+                db.Insert(userMapping);
                 return userShowName;
             }
         }
