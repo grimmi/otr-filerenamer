@@ -67,33 +67,9 @@ namespace EpisodeNamer
 
         private Episode FindEpisodeForEpisodeName(string episodeName, EpisodeList episodeList)
         {
-            Episode match = null;
-            var episodes = episodeList.Seasons.SelectMany(s => s.Episodes).ToList();
+            var nameMatcher = new EpisodeNameMatcher(episodeName);
 
-            match = episodes.FirstOrDefault(e => e.Name.ToLower().Equals(episodeName.ToLower()));
-
-            if (match != null)
-                return match;
-
-            var episodeNameLow = ToLowerWithOnlyLettersAndNumbers(episodeName);
-            match = episodes.FirstOrDefault(e => ToLowerWithOnlyLettersAndNumbers(e.Name).Equals(episodeNameLow));
-
-            if (match != null)
-                return match;
-
-            match = episodes.FirstOrDefault(e => episodeNameLow.StartsWith(ToLowerWithOnlyLettersAndNumbers(e.Name)));
-
-            if (match != null)
-                return match;
-
-            match = episodes.FirstOrDefault(e => ToLowerWithOnlyLettersAndNumbers(e.Name).StartsWith(episodeNameLow));
-
-            return match;
-        }
-
-        private string ToLowerWithOnlyLettersAndNumbers(string name)
-        {
-            return string.Concat(name.Where(c => char.IsLetter(c) || char.IsDigit(c))).ToLower();
+            return nameMatcher.GetMatchingEpisode(episodeList);
         }
 
         public string ExtractEpisodeNameFromOTRFileName(string filePath)

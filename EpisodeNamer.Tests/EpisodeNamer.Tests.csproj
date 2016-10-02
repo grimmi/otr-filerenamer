@@ -50,6 +50,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EpisodeNameMatcherTests.cs" />
     <Compile Include="FakeCrawler.cs" />
     <Compile Include="FileNameGeneratorTests.cs" />
     <Compile Include="OtrFileDateParserTests.cs" />

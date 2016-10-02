@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EpisodeFile.cs" />
+    <Compile Include="EpisodeNameMatcher.cs" />
     <Compile Include="FileNameGenerator.cs" />
     <Compile Include="OtrEpisodeFinder.cs" />
     <Compile Include="IEpisodeFinder.cs" />
