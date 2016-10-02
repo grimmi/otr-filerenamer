@@ -45,6 +45,9 @@
     <Reference Include="TvShowManager">
       <HintPath>..\..\TvShowManager\TvShowManager\bin\Release\TvShowManager.dll</HintPath>
     </Reference>
+    <Reference Include="WikipediaShowCrawler">
+      <HintPath>..\..\WikipediaShowCrawler\WikipediaShowCrawler\bin\Debug\WikipediaShowCrawler.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FakeCrawler.cs" />

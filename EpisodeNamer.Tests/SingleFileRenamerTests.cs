@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using NUnit.Framework;
+using WikipediaShowCrawler;
 
 namespace EpisodeNamer.Tests
 {
@@ -33,6 +34,18 @@ namespace EpisodeNamer.Tests
             var expectedPath = "The Simpsons " + sNr + "x" + epNr + " " + epName + ".avi";
 
             Assert.AreEqual(expectedPath, newName);
+        }
+
+        [Test]
+        public async Task RenameFile_iZombieS02E05_CorrectEpisodeNameAndNumber()
+        {
+            var crawler = new WikipediaCrawler();
+            var finder = new OtrEpisodeFinder();
+            var renamer = new SingleFileRenamer("iZombie__Love_Basketball_15.11.03_21-00_uswpix.mpg.HQ.avi", "iZombie", crawler, finder);
+
+            var newName = await renamer.RenameFile("");
+
+            Assert.AreEqual("iZombie 2x5 Love & Basketball.avi", newName);
         }
     }
 }

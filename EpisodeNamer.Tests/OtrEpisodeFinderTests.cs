@@ -73,6 +73,20 @@ namespace EpisodeNamer.Tests
             Assert.AreEqual(expName, episode.Episode.Name);
         }
 
+        [Test]
+        public async Task GetEpisodeAsync_iZombieS02E05_CorrectEpisode()
+        {
+            var crawler = GetIZombieCrawler();
+            var finder = new OtrEpisodeFinder();
+
+            var episode =
+                await finder.GetEpisodeAsync("iZombie__Love_Basketball_15.11.03_21-00_uswpix.mpg.HQ.avi", "iZombie", crawler);
+
+            Assert.AreEqual("Love & Basketball", episode.Episode.Name);
+            Assert.AreEqual(2, episode.Episode.Season.Number);
+            Assert.AreEqual(5, episode.Episode.Number);
+        }
+
         private IFileParser GetFileParser()
         {
             return new FakeParser();
@@ -81,6 +95,63 @@ namespace EpisodeNamer.Tests
         private IEpisodeCrawler GetShowCrawler()
         {
             return new FakeCrawler();
+        }
+
+        private IEpisodeCrawler GetIZombieCrawler()
+        {
+            return new IZombieCrawler();
+        }
+    }
+
+    public class IZombieCrawler : IEpisodeCrawler
+    {
+        public Task<EpisodeList> DownloadEpisodeListAsync(string showName)
+        {
+            var episodeList = new EpisodeList();
+            var s2 = new Season
+            {
+                Number = 2,
+                ShowName = "iZombie"
+            };
+            var s2e1 = new Episode
+            {
+                FirstAired = new DateTime(2015, 10, 6),
+                Name = "Grumpy Old Liv",
+                Number = 1,
+                Season = s2
+            };
+            var s2e2 = new Episode
+            {
+                FirstAired = new DateTime(2015, 10, 13),
+                Name = "Zombie Bro",
+                Number = 2,
+                Season = s2
+            };
+            var s2e3 = new Episode
+            {
+                FirstAired = new DateTime(2015, 10, 20),
+                Name = "Real Dead Housewife of Seattle",
+                Number = 3,
+                Season = s2
+            };
+            var s2e4 = new Episode
+            {
+                FirstAired = new DateTime(2015, 10, 27),
+                Name = "Even Cowgirls Get the Black and Blues",
+                Number = 4,
+                Season = s2
+            };
+            var s2e5 = new Episode
+            {
+                FirstAired = new DateTime(2015, 11, 3),
+                Name = "Love & Basketball",
+                Number = 5,
+                Season = s2
+            };
+
+            s2.Episodes = new[] { s2e1, s2e2, s2e3, s2e4, s2e5 };
+            episodeList.Seasons = new[] { s2 };
+            return Task.FromResult(episodeList);
         }
     }
 
