@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EpisodeNamer;
 using FileDistributor;
+using OtrBatchDecoder;
 using SQLite;
 using WikipediaShowCrawler;
 
@@ -92,12 +93,33 @@ namespace OtrEpisodeNamerCLI
                 Console.ReadKey();
             }
 
-            SetConfigValue("startdir", startDir);
+
+            var decodedDir = Path.Combine(startDir, "decoded");
+            SetConfigValue("startdir", decodedDir);
             SetConfigValue("targetdir", targetDir);
 
-            var files = Directory.EnumerateFiles(startDir, "*.avi", SearchOption.AllDirectories);
+            var decoder = new OtrBatchDecoder.OtrBatchDecoder();
+            var decodedFiles = decoder.Decode(new DecoderOptions
+            {
+                AutoCut = true,
+                ContinueWithoutCutlist = true,
+                CreateDirectories = true,
+                DecoderPath = GetConfigValue("decoderpath"),
+                Email = GetConfigValue("email"),
+                FileExtensions = new[] {".otrkey"},
+                ForceOverwrite = true,
+                InputDirectory = startDir,
+                OutputDirectory = Path.Combine(startDir, "decoded"),
+                Password = GetConfigValue("password")
+            }).ToList();
 
-            await Run(files, targetDir);
+            await Run(decodedFiles, targetDir);
+            SetConfigValue("startdir", startDir);
+            
+            foreach (var f in decodedFiles)
+            {
+                File.Delete(f);
+            }
         }
 
         private static void SetPathFromConfig(FolderBrowserDialog dlg, string cfgKey)

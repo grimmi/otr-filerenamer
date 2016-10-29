@@ -79,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\OtrBatchDecoder\OtrBatchDecoder\OtrBatchDecoder.csproj">
+      <Project>{0a85d52f-39d1-4211-8370-0d34dd027550}</Project>
+      <Name>OtrBatchDecoder</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EpisodeNamer\EpisodeNamer.csproj">
       <Project>{D8AE8AE2-C014-465C-833B-094C505FFA14}</Project>
       <Name>EpisodeNamer</Name>

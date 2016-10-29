@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtrEpisodeNamerCLI", "OtrEp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileDistributor", "FileDistributor\FileDistributor.csproj", "{3027F3BA-FD52-4532-ADAF-22AA8F8DEB10}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpisodeNamerGui", "EpisodeNamerGui\EpisodeNamerGui.csproj", "{22DB12BD-F51B-4F30-8835-D3829627A86A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtrBatchDecoder", "..\OtrBatchDecoder\OtrBatchDecoder\OtrBatchDecoder.csproj", "{0A85D52F-39D1-4211-8370-0D34DD027550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{3027F3BA-FD52-4532-ADAF-22AA8F8DEB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3027F3BA-FD52-4532-ADAF-22AA8F8DEB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3027F3BA-FD52-4532-ADAF-22AA8F8DEB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22DB12BD-F51B-4F30-8835-D3829627A86A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22DB12BD-F51B-4F30-8835-D3829627A86A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22DB12BD-F51B-4F30-8835-D3829627A86A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22DB12BD-F51B-4F30-8835-D3829627A86A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A85D52F-39D1-4211-8370-0D34DD027550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A85D52F-39D1-4211-8370-0D34DD027550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A85D52F-39D1-4211-8370-0D34DD027550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A85D52F-39D1-4211-8370-0D34DD027550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

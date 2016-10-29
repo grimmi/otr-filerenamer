@@ -1,3 +1,4 @@
+using System.IO;
 using TvShowManager;
 
 namespace EpisodeNamer
@@ -6,5 +7,10 @@ namespace EpisodeNamer
     {
         public Episode Episode { get; set; }
         public string File { get; set; }
+
+        public override string ToString()
+        {
+            return $"{Path.GetFileName(File)} -> {Episode.Season.ShowName} {Episode.Season.Number}x{Episode.Number} {Episode.Name}";
+        }
     }
 }
