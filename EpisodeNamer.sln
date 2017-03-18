@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26228.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpisodeNamer", "EpisodeNamer\EpisodeNamer.csproj", "{D8AE8AE2-C014-465C-833B-094C505FFA14}"
 EndProject
@@ -14,6 +14,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpisodeNamerGui", "EpisodeNamerGui\EpisodeNamerGui.csproj", "{22DB12BD-F51B-4F30-8835-D3829627A86A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OtrBatchDecoder", "..\OtrBatchDecoder\OtrBatchDecoder\OtrBatchDecoder.csproj", "{0A85D52F-39D1-4211-8370-0D34DD027550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikipediaShowCrawler", "..\WikipediaShowCrawler\WikipediaShowCrawler\WikipediaShowCrawler.csproj", "{B4390F6F-C697-420E-B80B-FC3E4470FCB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikipediaShowCrawler.Tests", "..\WikipediaShowCrawler\WikipediaShowCrawler.Tests\WikipediaShowCrawler.Tests.csproj", "{DC8E151C-8114-4063-8246-C5A343D97BF4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{0A85D52F-39D1-4211-8370-0D34DD027550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A85D52F-39D1-4211-8370-0D34DD027550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0A85D52F-39D1-4211-8370-0D34DD027550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4390F6F-C697-420E-B80B-FC3E4470FCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4390F6F-C697-420E-B80B-FC3E4470FCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4390F6F-C697-420E-B80B-FC3E4470FCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4390F6F-C697-420E-B80B-FC3E4470FCB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC8E151C-8114-4063-8246-C5A343D97BF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC8E151C-8114-4063-8246-C5A343D97BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC8E151C-8114-4063-8246-C5A343D97BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC8E151C-8114-4063-8246-C5A343D97BF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
