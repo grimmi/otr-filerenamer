@@ -91,6 +91,10 @@
       <Project>{3027F3BA-FD52-4532-ADAF-22AA8F8DEB10}</Project>
       <Name>FileDistributor</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TvDbCrawler\TvDbCrawler.fsproj">
+      <Project>{73f706d4-1463-4b57-8e33-0b2cc53da73e}</Project>
+      <Name>TvDbCrawler</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.0.1\build\SQLitePCLRaw.lib.e_sqlite3.linux.targets" Condition="Exists('..\packages\SQLitePCLRaw.lib.e_sqlite3.linux.1.0.1\build\SQLitePCLRaw.lib.e_sqlite3.linux.targets')" />

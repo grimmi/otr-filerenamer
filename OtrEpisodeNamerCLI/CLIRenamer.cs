@@ -184,7 +184,8 @@ namespace OtrEpisodeNamerCLI
                     var showName = showNameParser.GetShowName(f);
                     showName = AskUserForShowName(showName, f);
 
-                    var renamer = new SingleFileRenamer(f, showName, new WikipediaCrawler(), new OtrEpisodeFinder());
+                    //var renamer = new SingleFileRenamer(f, showName, new WikipediaCrawler(), new OtrEpisodeFinder());
+                    var renamer = new SingleFileRenamer(f, showName, new Crawler.TvDbCrawler(), new OtrEpisodeFinder());
                     var newName = await renamer.RenameFile("");
                     Console.WriteLine("Neuer Name: " + newName);
                     Console.WriteLine("---------------------------------------------------");

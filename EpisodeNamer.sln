@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.9
+VisualStudioVersion = 15.0.26228.12
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpisodeNamer", "EpisodeNamer\EpisodeNamer.csproj", "{D8AE8AE2-C014-465C-833B-094C505FFA14}"
 EndProject
@@ -18,6 +18,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikipediaShowCrawler", "..\WikipediaShowCrawler\WikipediaShowCrawler\WikipediaShowCrawler.csproj", "{B4390F6F-C697-420E-B80B-FC3E4470FCB1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikipediaShowCrawler.Tests", "..\WikipediaShowCrawler\WikipediaShowCrawler.Tests\WikipediaShowCrawler.Tests.csproj", "{DC8E151C-8114-4063-8246-C5A343D97BF4}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TvDbCrawler", "TvDbCrawler\TvDbCrawler.fsproj", "{73F706D4-1463-4B57-8E33-0B2CC53DA73E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,6 +59,10 @@ Global
 		{DC8E151C-8114-4063-8246-C5A343D97BF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC8E151C-8114-4063-8246-C5A343D97BF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC8E151C-8114-4063-8246-C5A343D97BF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F706D4-1463-4B57-8E33-0B2CC53DA73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F706D4-1463-4B57-8E33-0B2CC53DA73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F706D4-1463-4B57-8E33-0B2CC53DA73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F706D4-1463-4B57-8E33-0B2CC53DA73E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
